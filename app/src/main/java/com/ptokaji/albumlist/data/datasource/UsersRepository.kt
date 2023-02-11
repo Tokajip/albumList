@@ -1,11 +1,8 @@
-package com.ptokaji.albumlist.data.network
+package com.ptokaji.albumlist.data.datasource
 
 import com.ptokaji.albumlist.data.model.UserDataModel
 import io.reactivex.rxjava3.core.Single
-import retrofit2.http.GET
 
-interface UsersApi {
-
-    @GET("/users")
+interface UsersRepository {
     fun getUsers(): Single<List<UserDataModel>>
 }
