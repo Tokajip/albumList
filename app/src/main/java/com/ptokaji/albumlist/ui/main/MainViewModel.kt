@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
             .subscribe({
                 _uiState.value = Content(it.map { AlbumUiItem(it.username) })
             }, {
-                _uiState.value = Error
+                _uiState.value = Error(it.message ?: "")
             })
             .apply { disposeBag.add(this) }
     }
@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(
 
 sealed class MainUiState {
     object Loading : MainUiState()
-    object Error : MainUiState()
+    data class Error(val error: String) : MainUiState()
     data class Content(var uiList: List<AlbumUiItem>) : MainUiState()
 }
 
