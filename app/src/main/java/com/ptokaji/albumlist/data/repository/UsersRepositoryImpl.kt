@@ -1,4 +1,4 @@
-package com.ptokaji.albumlist.data.datasource
+package com.ptokaji.albumlist.data.repository
 
 import com.ptokaji.albumlist.data.model.UserDataModel
 import com.ptokaji.albumlist.data.network.UsersApi
