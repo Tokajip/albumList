@@ -7,6 +7,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -19,7 +21,7 @@ fun ErrorScreen(error: String?) {
         Text(text = "Something went wrong!")
         Text(text = "More details:")
         error?.let {
-            Text(text = it)
+            Text(text = it, textAlign = TextAlign.Center, color = Color.Red)
         }
     }
 }

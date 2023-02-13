@@ -28,9 +28,9 @@ class MainViewModel @Inject constructor(
                 _uiState.value =
                     Content(albumList.map {
                         AlbumUiItem(
-                            username = it.username,
+                            username = it.username ?: "",
                             thumbnail = it.albumThumbnail,
-                            albumTitle = it.albumTitle,
+                            albumTitle = it.albumTitle ?: "",
                             photoTitle = it.photoTitle
                         )
                     })

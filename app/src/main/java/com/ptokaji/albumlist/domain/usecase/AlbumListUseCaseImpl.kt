@@ -22,10 +22,8 @@ class AlbumListUseCaseImpl @Inject constructor(
                 AlbumDomainModel(
                     albumThumbnail = photo.thumbnailUrl,
                     photoTitle = photo.title,
-                    albumTitle = albums.firstOrNull { album -> album.id == photo.albumId }?.title
-                        ?: "",
-                    users.firstOrNull { user -> user.id == albums.firstOrNull { album -> album.id == photo.albumId }?.userId }?.username
-                        ?: "",
+                    albumTitle = albums.firstOrNull { album -> album.id == photo.albumId }?.title,
+                    users.firstOrNull { user -> user.id == albums.firstOrNull { album -> album.id == photo.albumId }?.userId }?.username,
                 )
             }
         }
