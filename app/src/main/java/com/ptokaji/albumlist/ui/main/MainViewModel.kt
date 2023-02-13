@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ptokaji.albumlist.domain.usecase.AlbumListUseCase
-import com.ptokaji.albumlist.ui.main.MainUiState.*
+import com.ptokaji.albumlist.ui.main.model.AlbumUiItem
+import com.ptokaji.albumlist.ui.main.model.MainUiState
+import com.ptokaji.albumlist.ui.main.model.MainUiState.Error
+import com.ptokaji.albumlist.ui.main.model.MainUiState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -13,9 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val albumListUseCase: AlbumListUseCase
+    private val albumListUseCase: AlbumListUseCase,
+    private val disposeBag: CompositeDisposable
 ) : ViewModel() {
-    private val disposeBag = CompositeDisposable()
 
     private val _uiState = MutableLiveData<MainUiState>(Loading)
     val uiState: LiveData<MainUiState> get() = _uiState
@@ -26,7 +29,7 @@ class MainViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ albumList ->
                 _uiState.value =
-                    Content(albumList.map {
+                    MainUiState.Content(albumList.map {
                         AlbumUiItem(
                             username = it.username ?: "",
                             thumbnail = it.albumThumbnail,
@@ -45,16 +48,3 @@ class MainViewModel @Inject constructor(
         disposeBag.clear()
     }
 }
-
-sealed class MainUiState {
-    object Loading : MainUiState()
-    data class Error(val error: String) : MainUiState()
-    data class Content(var uiList: List<AlbumUiItem>) : MainUiState()
-}
-
-data class AlbumUiItem(
-    val username: String,
-    val thumbnail: String,
-    val albumTitle: String,
-    val photoTitle: String
-)

@@ -8,9 +8,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.ptokaji.albumlist.ui.main.AlbumUiItem
+import com.ptokaji.albumlist.ui.main.model.AlbumUiItem
 
 @Composable
 fun ContentScreen(albumList: List<AlbumUiItem>) {
@@ -32,14 +35,17 @@ fun ContentScreen(albumList: List<AlbumUiItem>) {
                     )
                     Column(modifier = Modifier.padding(8.dp)) {
                         Text(
-                            text = it.photoTitle
+                            text = it.photoTitle,
+                            fontWeight = FontWeight.Bold
                         )
                         Text(
                             modifier = Modifier.padding(vertical = 8.dp),
                             text = it.albumTitle
                         )
                         Text(
-                            text = it.username
+                            text = it.username,
+                            color = Color.Gray,
+                            fontStyle = FontStyle.Italic
                         )
                     }
                 }

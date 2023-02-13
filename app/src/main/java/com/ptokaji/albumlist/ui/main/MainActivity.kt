@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.LiveData
+import com.ptokaji.albumlist.ui.main.model.MainUiState
 import com.ptokaji.albumlist.ui.screen.ContentScreen
 import com.ptokaji.albumlist.ui.screen.ErrorScreen
 import com.ptokaji.albumlist.ui.screen.LoadingScreen
@@ -30,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainViewScreen(viewModel)
+                    MainViewScreen(viewModel.uiState)
                 }
             }
         }
@@ -38,8 +40,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainViewScreen(viewModel: MainViewModel) {
-    val uiState: MainUiState? by viewModel.uiState.observeAsState()
+fun MainViewScreen(uiState: LiveData<MainUiState>) {
+    val uiState: MainUiState? by uiState.observeAsState()
     when (uiState) {
         is MainUiState.Content -> {
             ContentScreen((uiState as MainUiState.Content).uiList)
